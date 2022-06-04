@@ -1,0 +1,11 @@
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.gallery--img {
+  object-fit: cover;
+  aspect-ratio: 1;
+  width: 400px;
+}
