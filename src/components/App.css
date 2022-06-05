@@ -1,10 +1,66 @@
+body {
+  background-image: url("/src/bg-img.jpg");
+  background-size: cover;
+}
 
-html {
-  background-image: src ="ft.jpg" ;
+.home--container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titulo {
+  height: 35rem;
+  position: relative;
+  margin-top: 10rem;
+  text-shadow: 0 4px 4px #00000040;
+}
+
+.titulo--texto {
+  font-family: "Oswald", sans-serif;
+  font-size: 14.4rem;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+}
+
+.titulo--texto-meio {
+  font-family: "Abril Fatface", cursive;
+  font-size: 7.2rem;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 215%;
-  }
-  
+  transform: translate(-50%, -55%);
+  color: #000000;
+  z-index: 99;
+}
+
+.titulo--texto:last-child {
+  transform: translateY(-40%);
+}
+
+.search--box {
+  font-family: "Oxygen", sans-serif;
+  width: 70rem;
+  color: #3f3f3f;
+  height: 6.8rem;
+  border-radius: 7rem;
+  border: none;
+  font-size: 2.4rem;
+  box-shadow: 0 1px 4px #00000040;
+  padding-left: 3.2rem;
+  line-height: 6.8rem;
+}
+
+.search--box::placeholder {
+  opacity: 0.7;
+}
+
+.search--box:focus {
+  outline: 4px solid #c5acac66;
+}
+
+button {
+  height: 37px;
+  border-radius: 7px;
+}

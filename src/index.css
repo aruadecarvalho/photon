@@ -1,43 +1,11 @@
-  html{
-    background-image:url("ft.jpg");
-    background-position: center;
-    background-attachment: fixed;
-    background-size: 100% 100%;
-  }
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  h1{
-    text-align: center;
-    font-family: Rubik;
-    text-shadow: 0 0 10px black;
-    font-size: 250%;
-    line-height: 10%;
-    color: white;
-  }
-
-  .titulo{
-    position: relative;
-  }
-
-  .titulo::after{
-    top: -50%;
-    left: 50%;
-    transform: translate(-55%, 35%);
-    position: absolute;
-    content: "onde";
-    font-family: Dan;
-    font-size: 200%;
-    color:black;
-  }
-
-  input{
-    width: 400px;
-    height: 30px;
-    border-radius: 10px;
-    position: center;
-  }
-
-  button{
-    height: 37px;
-    border-radius: 7px;
-  }
-
+html {
+  font-size: 62.5%;
+}

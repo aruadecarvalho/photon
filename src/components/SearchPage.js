@@ -19,6 +19,10 @@ function SearchPage() {
     SearchPhotos();
   }
 
+  // window.addEventListener('scroll', () => {
+  //   console.log('scrolled');
+  // })
+
   // search for photos based on the user input
   async function SearchPhotos() {
     // get user input value
@@ -43,7 +47,7 @@ function SearchPage() {
 
   return (
     <div>
-      <input type="text" ref={inputRef} />
+      <input className="search--box" type="text" ref={inputRef} />
       <button onClick={SearchPhotos}>Search</button>
       <div className="gallery"></div>
       <button onClick={handleIncrementPageNumber}>More</button>
