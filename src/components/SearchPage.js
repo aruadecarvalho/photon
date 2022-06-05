@@ -39,9 +39,9 @@ function SearchPage() {
 
   return (
     <div>
-      <input type="text" ref={inputRef} />
-      <button onClick={SearchPhotos}>Search</button>
-      <div className="gallery"></div>;
+      <input class="form-control form-control-lg" type="text"  ref={inputRef} />
+      <button  onClick={SearchPhotos}>Search</button>
+      <div className="gallery"></div>
     </div>
   );
 }
