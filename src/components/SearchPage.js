@@ -1,47 +1,52 @@
 import "./SearchPage.css";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 function SearchPage() {
-  const inputRef = useRef(null);
+  const [pageCount, setPageCount] = useState(1);
+  // set input to null
+  const inputRef = useRef("");
 
+  // display photos when enter is pressed
+  document.addEventListener("keydown", (event) => {
+    let keyName = event.key;
+    if (keyName === "Enter") {
+      SearchPhotos();
+    }
+  });
+
+  function handleIncrementPageNumber() {
+    setPageCount((prevValue) => prevValue + 1);
+    SearchPhotos();
+  }
+
+  // search for photos based on the user input
   async function SearchPhotos() {
-    const queryValue = inputRef.current.value;
-    console.log(queryValue);
-    const response = await fetch(
-      `https://api.pexels.com/v1/search?query=${queryValue}&per_page=12`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          Authorization:
-            "563492ad6f91700001000001447a191a486c49e9a7d681ccd8596593",
-        },
-      }
-    );
+    // get user input value
+    const queryValue = inputRef.current.value.split(" ");
     const galleryEl = document.querySelector(".gallery");
-    galleryEl.innerHTML = "";
+    // galleryEl.innerHTML = "";
+    //await response of fetch call
+    const response = await fetch(
+      `https://pixabay.com/api/?key=27857065-d7810c7abcc7feaee44735907&q=${queryValue.join(
+        "+"
+      )}&image_type=photo&pretty=true&per_page=24&page=${pageCount}`
+    );
+    // only proceed once promise is resolved
     const data = await response.json();
-    console.log(data);
-    data.photos.forEach((photo) => {
-      const imgEl = document.createElement("div");
-      console.log(photo);
-      imgEl.innerHTML = `<img class='gallery--img' src=${photo.src.large} />`;
-      galleryEl.appendChild(imgEl);
-    });
 
-    document.addEventListener("keydown", (event) => {
-      let keyName = event.key;
-      if (keyName === "Enter") {
-        SearchPhotos();
-      }
+    data.hits.forEach((photo) => {
+      const imgEl = document.createElement("div");
+      imgEl.innerHTML = `<img class='gallery--img' alt='${photo.tags}' src=${photo.largeImageURL} />`;
+      galleryEl.appendChild(imgEl);
     });
   }
 
   return (
     <div>
-      <input class="form-control form-control-lg" type="text"  ref={inputRef} />
-      <button  onClick={SearchPhotos}>Search</button>
+      <input type="text" ref={inputRef} />
+      <button onClick={SearchPhotos}>Search</button>
       <div className="gallery"></div>
+      <button onClick={handleIncrementPageNumber}>More</button>
     </div>
   );
 }
