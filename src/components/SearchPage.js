@@ -8,7 +8,7 @@ function SearchPage() {
   // inicializa elementos
   const inputRef = useRef("");
 
-  // pega um array de fotos da API baseado no input
+  // pega um array de fotos da API baseado no input oi dhsfua
   async function SearchPhotos() {
     // transforma valor do input no formato ('um+dois')
     const queryValue = inputRef.current.value.toLowerCase().replace(" ", "+");
