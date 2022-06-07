@@ -1,22 +1,36 @@
 import "../css/SearchPage.css";
 import "../css/Home.css";
-import { useRef } from "react";
+import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
+import { useLocation } from "react-router-dom";
 
 function SearchPage() {
-  // inicializa a contagem de paginas em 1
+  // valor input da home
+  const location = useLocation();
+  const { inputValueHome } = location.state;
+
+  // valor input da SearchPage
+  const [inputValueData, setInputValueData] = useState(null);
+  // manipulação do input
+  function handleInputChange(event) {
+    setInputValueData(event.target.value);
+  }
+
+  // inicializa a contagem de páginasd
   let pageCount = 1;
-  // inicializa elementos
-  const inputRef = useRef("");
 
   // pega um array de fotos da API baseado no input
   async function SearchPhotos() {
-    // transforma valor do input no formato ('um+dois')
-    const queryValue = inputRef.current.value.toLowerCase().replace(" ", "+");
+    const queryValue =
+      inputValueData === null ? inputValueHome : inputValueData;
     // pega os dados da API
-    console.log(pageCount);
     const response = await fetch(
-      `https://pixabay.com/api/?key=27857065-d7810c7abcc7feaee44735907&q=${queryValue}&image_type=photo&pretty=true&per_page=30&page=${pageCount}`
+      `https://pixabay.com/api/?key=27857065-d7810c7abcc7feaee44735907&q=${queryValue
+        .toLowerCase()
+        .replace(
+          " ",
+          "+"
+        )}&image_type=photo&pretty=true&per_page=30&page=${pageCount}`
     );
     const data = await response.json();
 
@@ -25,7 +39,6 @@ function SearchPage() {
     ***********************/
     // ! Implementar loader para as fotos aparecerem de uma vez
     const galleryEl = document.querySelector(".gallery");
-    console.log(data.hits);
     data.hits.forEach((photo) => {
       // para cada foto cria uma div
       const imgEl = document.createElement("div");
@@ -34,6 +47,8 @@ function SearchPage() {
       galleryEl.appendChild(imgEl);
     });
   }
+
+  SearchPhotos();
 
   // aumenta o PageCount para carregar mais fotos
   function handleIncrementPageNumber() {
@@ -45,6 +60,7 @@ function SearchPage() {
   function NewSearch() {
     // limpa a pagina para nova pesquisa, se o input estiver vazio
     document.querySelector(".gallery").innerHTML = "";
+    pageCount = 1;
     SearchPhotos();
   }
 
@@ -52,7 +68,7 @@ function SearchPage() {
   document.addEventListener("keydown", (event) => {
     let keyName = event.key;
     if (keyName === "Enter") {
-      SearchPhotos();
+      NewSearch();
     }
   });
 
@@ -72,7 +88,7 @@ function SearchPage() {
           className="search--box"
           placeholder="Pesquise aqui"
           type="text"
-          ref={inputRef}
+          onChange={handleInputChange}
         />
         <button className="btn--search" onClick={NewSearch}>
           <BsSearch className="search-icon" />

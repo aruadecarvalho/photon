@@ -1,10 +1,16 @@
-import React from "react";
 import "../css/Home.css";
 import "../css/SearchPage.css";
 import { Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
+import { useState } from "react";
 
 function Home() {
+  const [inputValueData, setInputValueData] = useState(null);
+
+  function handleInputChange(event) {
+    setInputValueData(event.target.value);
+  }
+
   return (
     <div className="home--container">
       <div className="titulo">
@@ -17,8 +23,9 @@ function Home() {
           placeholder="Pesquise aqui"
           className="search--box"
           type="text"
+          onChange={handleInputChange}
         />
-        <Link to="/search">
+        <Link to="/search" state={{ inputValueHome: `${inputValueData}` }}>
           <button className="btn--search">
             <BsSearch className="search-icon" />
           </button>
