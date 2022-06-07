@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ErrorPage from "./Pages/ErrorPage";
-import Home from "./Pages/Home";
-import SearchPage from "./Pages/SearchPage";
+import Home from "./Pages/Home.js";
+import SearchPage from "./Pages/SearchPage.js";
 
 function App() {
   return (
@@ -14,5 +14,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;
