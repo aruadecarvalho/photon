@@ -1,4 +1,5 @@
 import "../css/SearchPage.css";
+import "../css/Home.css";
 import { useRef } from "react";
 import { BsSearch } from "react-icons/bs";
 

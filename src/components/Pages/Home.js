@@ -1,5 +1,6 @@
 import React from "react";
 import "../css/Home.css";
+import "../css/SearchPage.css";
 import { Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 
