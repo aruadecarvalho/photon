@@ -1,22 +1,17 @@
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ErrorPage from "./Pages/ErrorPage";
+import Home from "./Pages/Home";
+import SearchPage from "./Pages/SearchPage";
 
 function App() {
   return (
-    <div className="home--container">
-      <div className="titulo">
-        <p className="titulo--texto">DIGITE</p>
-        <p className="titulo--texto-meio">uma</p>
-        <p className="titulo--texto">PALAVRA</p>
-      </div>
-      <div className="input--container">
-        <input
-          placeholder="Pesquise aqui"
-          className="search--box"
-          type="text"
-        />
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </Router>
   );
 }
-
 export default App;

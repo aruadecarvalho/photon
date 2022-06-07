@@ -1,4 +1,5 @@
-import "./SearchPage.css";
+import "../css/SearchPage.css";
+import "../css/Home.css";
 import { useRef } from "react";
 import { BsSearch } from "react-icons/bs";
 
@@ -40,14 +41,18 @@ function SearchPage() {
     SearchPhotos();
   }
 
+  // inicializa uma nova pesquisa
+  function NewSearch() {
+    // limpa a pagina para nova pesquisa, se o input estiver vazio
+    document.querySelector(".gallery").innerHTML = "";
+    SearchPhotos();
+  }
+
   // mostra fotos quando enter é pressionado
   document.addEventListener("keydown", (event) => {
     let keyName = event.key;
     if (keyName === "Enter") {
       SearchPhotos();
-    } else if (keyName === "Backspace") {
-      // limpa a pagina para nova pesquisa, se o input estiver vazio
-      document.querySelector(".gallery").innerHTML = "";
     }
   });
 
@@ -62,9 +67,14 @@ function SearchPage() {
     <div className="search-page--container">
       {/* Adicionar LOGO */}
       {/* Adicionar DIV com background linear gradient (igual o design) */}
-      <div className="search-bar">
-        <input className="search--box" type="text" ref={inputRef} />
-        <button className="btn--search" onClick={SearchPhotos}>
+      <div className="search-bar search-page-padding-input">
+        <input
+          className="search--box"
+          placeholder="Pesquise aqui"
+          type="text"
+          ref={inputRef}
+        />
+        <button className="btn--search" onClick={NewSearch}>
           <BsSearch className="search-icon" />
         </button>
       </div>
