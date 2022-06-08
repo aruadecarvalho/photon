@@ -12,7 +12,7 @@ function SearchPage() {
   // inicializa a contagem de páginasd
   let pageCount = 1;
 
-  // pega um array de fotos da API baseado no input
+  // pega um array de fotos da API baseado no input oi dhsfua
   async function SearchPhotos() {
     // valor input da SearchPage
     const inputValueData = document.querySelector(".search--box").value;
