@@ -64,3 +64,24 @@ button {
   height: 37px;
   border-radius: 7px;
 }
+
+logo {
+  position: absolute;
+  width: 200px;
+  height: 107px;
+  left: 68px;
+  top: 26px;
+  
+  font-family: 'Pattaya';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 50px;
+  text-align: center;
+  -webkit-text-stroke-width: .75px;
+  -webkit-text-stroke-color: black;
+  color:#ffffff00;
+
+  border: 0px solid #000000ad;
+  
+}

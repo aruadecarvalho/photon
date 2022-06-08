@@ -1,5 +1,6 @@
 import "../css/SearchPage.css";
 import "../css/Home.css";
+// eslint-disable-next-line
 import { BsSearch, BsCaretUpFill } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
