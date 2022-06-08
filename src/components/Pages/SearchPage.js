@@ -1,8 +1,8 @@
 import "../css/SearchPage.css";
 import "../css/Home.css";
-import { useState } from "react";
-import { BsSearch } from "react-icons/bs";
+import { BsSearch, BsCaretUpFill } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
+import { Oval } from "react-loader-spinner";
 
 function SearchPage() {
   // valor input da home
@@ -16,9 +16,7 @@ function SearchPage() {
   async function SearchPhotos() {
     // valor input da SearchPage
     const inputValueData = document.querySelector(".search--box").value;
-    const queryValue =
-      inputValueData === null ? inputValueHome : inputValueData;
-    console.log(pageCount);
+    const queryValue = inputValueData === "" ? inputValueHome : inputValueData;
     // pega os dados da API
     const response = await fetch(
       `https://pixabay.com/api/?key=27857065-d7810c7abcc7feaee44735907&q=${queryValue
@@ -33,18 +31,36 @@ function SearchPage() {
     /***********************
         DISPLAY DAS FOTOS
     ***********************/
+    loading(true);
     // ! Implementar loader para as fotos aparecerem de uma vez
     const galleryEl = document.querySelector(".gallery");
     data.hits.forEach((photo) => {
       // para cada foto cria uma div
       const imgEl = document.createElement("div");
       // declara os valores dos atributos da <img>
-      imgEl.innerHTML = `<img class='gallery--img' alt='${photo.tags}' src=${photo.largeImageURL} />`;
+      imgEl.innerHTML = `<img class='gallery--img' alt='${photo.tags}' src=${photo.webformatURL} />`;
       galleryEl.appendChild(imgEl);
     });
+    loading(false);
   }
 
   SearchPhotos();
+
+  // loader
+  function loading(param) {
+    const loader = document.querySelector(".loader");
+    const galleryEl = document.querySelector(".gallery");
+    // carregando, loading(true)
+    if (param) {
+      loader.style.visibility = "visible";
+      loader.style.display = "block";
+      galleryEl.style.visibility = "hidden";
+    }
+    // finalizado, loading(false)
+    loader.style.visibility = "hidden";
+    loader.style.display = "none";
+    galleryEl.style.visibility = "visible";
+  }
 
   // aumenta o PageCount para carregar mais fotos
   function handleIncrementPageNumber() {
@@ -90,6 +106,9 @@ function SearchPage() {
         </button>
       </div>
       {/* Implementar botão que de scroll para o top da página */}
+      <div className="loader">
+        <Oval height="100" width="100" color="grey" ariaLabel="loading" />
+      </div>
       <div className="gallery"></div>
     </div>
   );
