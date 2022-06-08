@@ -9,20 +9,16 @@ function SearchPage() {
   const location = useLocation();
   const { inputValueHome } = location.state;
 
-  // valor input da SearchPage
-  const [inputValueData, setInputValueData] = useState(null);
-  // manipulação do input
-  function handleInputChange(event) {
-    setInputValueData(event.target.value);
-  }
-
   // inicializa a contagem de páginasd
   let pageCount = 1;
 
   // pega um array de fotos da API baseado no input
   async function SearchPhotos() {
+    // valor input da SearchPage
+    const inputValueData = document.querySelector(".search--box").value;
     const queryValue =
       inputValueData === null ? inputValueHome : inputValueData;
+    console.log(pageCount);
     // pega os dados da API
     const response = await fetch(
       `https://pixabay.com/api/?key=27857065-d7810c7abcc7feaee44735907&q=${queryValue
@@ -88,7 +84,6 @@ function SearchPage() {
           className="search--box"
           placeholder="Pesquise aqui"
           type="text"
-          onChange={handleInputChange}
         />
         <button className="btn--search" onClick={NewSearch}>
           <BsSearch className="search-icon" />
