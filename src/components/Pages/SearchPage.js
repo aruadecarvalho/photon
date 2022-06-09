@@ -95,6 +95,14 @@ function SearchPage() {
     }
   });
 
+  //botao scrolltop
+  function scrollWin() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+  
   return (
     <div className="search-page--container">
       <div className="gradient-top--container"></div>
@@ -110,8 +118,8 @@ function SearchPage() {
         <button className="btn--search" onClick={NewSearch}>
           <BsSearch className="search-icon" />
         </button>
-      </div>
-      {/* Implementar botão que de scroll para o top da página */}
+        <button className="scrolltop" onClick={scrollWin}></button>
+      </div>       
       <div className="loader">
         <Oval height="100" width="100" color="grey" ariaLabel="loading" />
       </div>
