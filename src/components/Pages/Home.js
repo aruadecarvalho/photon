@@ -3,7 +3,7 @@ import "../css/SearchPage.css";
 import { Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { useState } from "react";
-
+import bgImg from "../img/bg-img.jpg";
 function Home() {
   const [inputValueData, setInputValueData] = useState(null);
 
@@ -13,6 +13,11 @@ function Home() {
 
   return (
     <div className="home--container">
+      <img className="img--background" alt="montanhas" src={bgImg} />
+
+      <div className="logo--container">
+        <p className="logo">Photon</p>
+      </div>
       <div className="titulo">
         <p className="titulo--texto">DIGITE</p>
         <p className="titulo--texto-meio">uma</p>

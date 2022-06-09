@@ -1,6 +1,5 @@
 import "../css/SearchPage.css";
 import "../css/Home.css";
-// eslint-disable-next-line
 import { BsSearch, BsCaretUpFill } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
@@ -87,16 +86,22 @@ function SearchPage() {
 
   // carrega fotos quando o usuário chega no fim da página
   window.addEventListener("scroll", () => {
-    if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+    if (
+      window.innerHeight + window.scrollY >=
+      document.body.scrollHeight - 10
+    ) {
+      console.log("mais");
       handleIncrementPageNumber();
     }
   });
 
   return (
     <div className="search-page--container">
-      {/* Adicionar LOGO */}
-      {/* Adicionar DIV com background linear gradient (igual o design) */}
-      <div className="search-bar search-page-padding-input">
+      <div className="gradient-top--container"></div>
+      <div className="logo--container-search-page">
+        <p className="logo logo-search-page">Photon</p>
+      </div>
+      <div className="search-bar search-page-padding-input search-bar--search-page">
         <input
           className="search--box"
           placeholder="Pesquise aqui"
