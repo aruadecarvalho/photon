@@ -83,9 +83,10 @@
   right: 5rem;
   width: 5rem;
   height: 5rem;
-  background-color: #0ddfe6a8;
+  background-color: #0ddfe6d5;
   text-decoration: none;
 }
+
 .scrolltop::after {
   content: "↑";
   font-size: 3.5rem;
@@ -93,8 +94,9 @@
   color: #ffffff;
   transition: margin-top 250ms;
 }
+
 .scrolltop:hover::after {
-  margin-top:-1.5rem;
+  margin-top: -1.5rem;
 }
 
 @media (max-width: 35em) {
@@ -106,5 +108,12 @@
   }
   .gallery {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .scrolltop {
+    width: 6rem;
+    height: 6rem;
+  }
+  .scrolltop::after {
+    font-size: 4rem;
   }
 }

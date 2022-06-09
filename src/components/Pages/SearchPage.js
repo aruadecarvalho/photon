@@ -1,6 +1,6 @@
 import "../css/SearchPage.css";
 import "../css/Home.css";
-import { BsSearch, BsCaretUpFill } from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 
@@ -102,7 +102,7 @@ function SearchPage() {
       behavior: "smooth",
     });
   }
-  
+
   return (
     <div className="search-page--container">
       <div className="gradient-top--container"></div>
@@ -118,12 +118,12 @@ function SearchPage() {
         <button className="btn--search" onClick={NewSearch}>
           <BsSearch className="search-icon" />
         </button>
-        <button className="scrolltop" onClick={scrollWin}></button>
-      </div>       
+      </div>
       <div className="loader">
         <Oval height="100" width="100" color="grey" ariaLabel="loading" />
       </div>
       <div className="gallery"></div>
+      <button className="scrolltop" onClick={scrollWin}></button>
     </div>
   );
 }
