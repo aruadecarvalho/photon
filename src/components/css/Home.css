@@ -90,6 +90,7 @@ body {
 
 .search--box:focus {
   outline: 4px solid #c5acac66;
+  border-radius: 7rem;
 }
 
 button {
@@ -145,7 +146,7 @@ button {
     margin-top: 0;
   }
   .titulo--texto {
-    font-size: 11rem;
+    font-size: 12.5rem;
   }
   .titulo--texto-meio {
     transform: translate(-50%, -80%);

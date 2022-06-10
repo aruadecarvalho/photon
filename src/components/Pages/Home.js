@@ -1,15 +1,27 @@
 import "../css/Home.css";
 import "../css/SearchPage.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { useState } from "react";
 import bgImg from "../img/bg-img.jpg";
+
 function Home() {
   const [inputValueData, setInputValueData] = useState(null);
+  let navigate = useNavigate();
 
   function handleInputChange(event) {
     setInputValueData(event.target.value);
   }
+
+  function navigateToSearch() {
+    navigate(`/search/${inputValueData}`);
+  }
+
+  // document.addEventListener("keydown", function (event) {
+  //   if (event.key === "Enter") {
+  //     navigateToSearch();
+  //   }
+  // });
 
   return (
     <div className="home--container">
@@ -30,11 +42,9 @@ function Home() {
           type="text"
           onChange={handleInputChange}
         />
-        <Link to="/search" state={{ inputValueHome: `${inputValueData}` }}>
-          <button className="btn--search">
-            <BsSearch className="search-icon" />
-          </button>
-        </Link>
+        <button onClick={navigateToSearch} className="btn--search">
+          <BsSearch className="search-icon" />
+        </button>
       </div>
     </div>
   );
