@@ -1,47 +1,76 @@
 import "../css/SearchPage.css";
 import "../css/Home.css";
 import { BsSearch } from "react-icons/bs";
-import { useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
+import { useState } from "react";
 
 function SearchPage() {
   // valor input da home
-  const location = useLocation();
-  const { inputValueHome } = location.state;
+  const params = useParams();
+  const inputParam = params.inputParam;
 
-  // inicializa a contagem de páginasd
+  // valor do input da pagina
+  const [inputValue, setInputValue] = useState(inputParam);
+  const [timer, setTimer] = useState(null);
+  const [userTyping, setUserTyping] = useState(false);
+
+  // handle change do input toda hora
+  function handleChange(e) {
+    setInputValue(e.target.value);
+    setUserTyping(true);
+    clearTimeout(timer);
+    const newTimer = setTimeout(() => {
+      setUserTyping(false);
+    }, 1000);
+    setTimer(newTimer);
+  }
+
+  let navigate = useNavigate();
+
+  // gera uma nova busca
+  function navigateToSearch() {
+    document.querySelector(".gallery").innerHTML = "";
+    pageCount = 1;
+    navigate(`/search/${inputValue}`);
+  }
+
+  // inicializa a contagem de páginas
   let pageCount = 1;
 
-  // pega um array de fotos da API baseado no input oi dhsfua
+  // pega um array de fotos da API baseado no input
   async function SearchPhotos() {
     // valor input da SearchPage
-    const inputValueData = document.querySelector(".search--box").value;
-    const queryValue = inputValueData === "" ? inputValueHome : inputValueData;
-    // pega os dados da API
-    const response = await fetch(
-      `https://pixabay.com/api/?key=27857065-d7810c7abcc7feaee44735907&q=${queryValue
-        .toLowerCase()
-        .replace(
-          " ",
-          "+"
-        )}&image_type=photo&pretty=true&per_page=30&page=${pageCount}`
-    );
-    const data = await response.json();
-
-    /***********************
+    if (!userTyping) {
+      const queryValue = inputParam;
+      // pega os dados da API
+      console.log("API call");
+      console.log(queryValue);
+      const response = await fetch(
+        `https://pixabay.com/api/?key=27857065-d7810c7abcc7feaee44735907&q=${queryValue
+          .toLowerCase()
+          .replace(
+            " ",
+            "+"
+          )}&image_type=photo&pretty=true&per_page=30&page=${pageCount}`
+      );
+      const data = await response.json();
+      /***********************
         DISPLAY DAS FOTOS
-    ***********************/
-    loading(true);
-    // ! Implementar loader para as fotos aparecerem de uma vez
-    const galleryEl = document.querySelector(".gallery");
-    data.hits.forEach((photo) => {
-      // para cada foto cria uma div
-      const imgEl = document.createElement("div");
-      // declara os valores dos atributos da <img>
-      imgEl.innerHTML = `<img class='gallery--img' alt='${photo.tags}' src=${photo.webformatURL} />`;
-      galleryEl.appendChild(imgEl);
-    });
-    loading(false);
+      ***********************/
+      loading(true);
+      console.log(data.hits);
+      // ! Implementar loader para as fotos aparecerem de uma vez
+      const galleryEl = document.querySelector(".gallery");
+      data.hits.forEach((photo) => {
+        // para cada foto cria uma div
+        const imgEl = document.createElement("div");
+        // declara os valores dos atributos da <img>
+        imgEl.innerHTML = `<img class='gallery--img' alt='${photo.tags}' src=${photo.webformatURL} />`;
+        galleryEl.appendChild(imgEl);
+      });
+      loading(false);
+    }
   }
 
   SearchPhotos();
@@ -68,21 +97,11 @@ function SearchPage() {
     SearchPhotos();
   }
 
-  // inicializa uma nova pesquisa
-  function NewSearch() {
-    // limpa a pagina para nova pesquisa, se o input estiver vazio
-    document.querySelector(".gallery").innerHTML = "";
-    pageCount = 1;
-    SearchPhotos();
-  }
-
-  // mostra fotos quando enter é pressionado
-  document.addEventListener("keydown", (event) => {
-    let keyName = event.key;
-    if (keyName === "Enter") {
-      NewSearch();
-    }
-  });
+  // document.addEventListener("keydown", function (event) {
+  //   if (event.key === "Enter") {
+  //     navigateToSearch();
+  //   }
+  // });
 
   // carrega fotos quando o usuário chega no fim da página
   window.addEventListener("scroll", () => {
@@ -90,7 +109,6 @@ function SearchPage() {
       window.innerHeight + window.scrollY >=
       document.body.scrollHeight - 10
     ) {
-      console.log("mais");
       handleIncrementPageNumber();
     }
   });
@@ -114,8 +132,10 @@ function SearchPage() {
           className="search--box"
           placeholder="Pesquise aqui"
           type="text"
+          value={inputValue}
+          onChange={handleChange}
         />
-        <button className="btn--search" onClick={NewSearch}>
+        <button className="btn--search" onClick={navigateToSearch}>
           <BsSearch className="search-icon" />
         </button>
       </div>

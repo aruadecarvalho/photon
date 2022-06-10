@@ -8,7 +8,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/search" element={<SearchPage />} />
+        <Route path="/search/:inputParam" element={<SearchPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Router>
