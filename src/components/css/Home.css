@@ -133,7 +133,7 @@ button {
 
 @media (max-width: 35em) {
   .logo--container {
-    transform: translate(-5%, -20%);
+    transform: translate(0, -20%);
     padding-bottom: 4.4rem;
   }
 
@@ -151,7 +151,7 @@ button {
     transform: translate(-50%, -80%);
   }
   .search-bar {
-    transform: translateY(-100%);
+    transform: translateY(-125%);
   }
   .search--box {
     width: 45rem;
