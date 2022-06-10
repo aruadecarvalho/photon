@@ -133,27 +133,27 @@ button {
 
 @media (max-width: 35em) {
   .logo--container {
-    transform: translate(-30%, 25%);
+    transform: translate(0, -20%);
     padding-bottom: 4.4rem;
   }
 
   .logo {
-    font-size: 12.4rem;
+    font-size: 8rem;
   }
 
   .titulo {
-    margin-top: 8rem;
+    margin-top: 0;
   }
   .titulo--texto {
-    font-size: 12rem;
+    font-size: 11rem;
   }
   .titulo--texto-meio {
     transform: translate(-50%, -80%);
   }
   .search-bar {
-    transform: translateY(-50%);
+    transform: translateY(-150%);
   }
   .search--box {
-    width: 50rem;
+    width: 45rem;
   }
 }
