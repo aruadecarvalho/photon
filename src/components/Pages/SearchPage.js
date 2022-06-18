@@ -3,7 +3,7 @@ import "../css/Home.css";
 import { BsSearch } from "react-icons/bs";
 import { useParams, useNavigate } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function SearchPage() {
   // valor input da home
@@ -14,6 +14,7 @@ function SearchPage() {
   const [inputValue, setInputValue] = useState(inputParam);
   const [timer, setTimer] = useState(null);
   const [userTyping, setUserTyping] = useState(false);
+  const [pageCount, setPageCount] = useState(1);
 
   // handle change do input toda hora
   function handleChange(e) {
@@ -31,23 +32,19 @@ function SearchPage() {
   // gera uma nova busca
   function navigateToSearch() {
     document.querySelector(".gallery").innerHTML = "";
-    pageCount = 1;
+    setPageCount(1);
     navigate(`/search/${inputValue}`);
   }
-
-  // inicializa a contagem de páginas
-  let pageCount = 1;
 
   // pega um array de fotos da API baseado no input
   async function SearchPhotos() {
     // valor input da SearchPage
     if (!userTyping) {
-      const queryValue = inputParam;
       // pega os dados da API
       console.log("API call");
-      console.log(queryValue);
+      console.log(inputParam);
       const response = await fetch(
-        `https://pixabay.com/api/?key=27857065-d7810c7abcc7feaee44735907&q=${queryValue
+        `https://pixabay.com/api/?key=27857065-d7810c7abcc7feaee44735907&q=${inputParam
           .toLowerCase()
           .replace(
             " ",
@@ -59,8 +56,7 @@ function SearchPage() {
         DISPLAY DAS FOTOS
       ***********************/
       loading(true);
-      console.log(data.hits);
-      // ! Implementar loader para as fotos aparecerem de uma vez
+
       const galleryEl = document.querySelector(".gallery");
       data.hits.forEach((photo) => {
         // para cada foto cria uma div
@@ -73,7 +69,9 @@ function SearchPage() {
     }
   }
 
-  SearchPhotos();
+  useEffect(() => {
+    SearchPhotos();
+  }, [pageCount]);
 
   // loader
   function loading(param) {
@@ -91,25 +89,17 @@ function SearchPage() {
     galleryEl.style.visibility = "visible";
   }
 
-  // aumenta o PageCount para carregar mais fotos
-  function handleIncrementPageNumber() {
-    pageCount++;
-    SearchPhotos();
-  }
-
-  // document.addEventListener("keydown", function (event) {
-  //   if (event.key === "Enter") {
-  //     navigateToSearch();
-  //   }
-  // });
+  // incrementa o pageCount
+  const incrementCount = () => setPageCount(pageCount + 1);
 
   // carrega fotos quando o usuário chega no fim da página
   window.addEventListener("scroll", () => {
-    if (
-      window.innerHeight + window.scrollY >=
-      document.body.scrollHeight - 10
-    ) {
-      handleIncrementPageNumber();
+    //window.innerHeight = altura da tela
+    // window.scrollY = altura do começo da tela até o fim da current viewport
+    // document.body.scrollHeight  = altura da tela inteira, contando com o que nao da pra ver
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+      incrementCount();
+      console.log(pageCount);
     }
   });
 
