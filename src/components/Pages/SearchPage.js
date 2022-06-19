@@ -56,7 +56,7 @@ function SearchPage() {
         DISPLAY DAS FOTOS
       ***********************/
       loading(true);
-
+      console.log(pageCount);
       const galleryEl = document.querySelector(".gallery");
       data.hits.forEach((photo) => {
         // para cada foto cria uma div
@@ -99,7 +99,6 @@ function SearchPage() {
     // document.body.scrollHeight  = altura da tela inteira, contando com o que nao da pra ver
     if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
       incrementCount();
-      console.log(pageCount);
     }
   });
 
