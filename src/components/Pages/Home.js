@@ -17,12 +17,6 @@ function Home() {
     navigate(`/search/${inputValueData}`);
   }
 
-  // document.addEventListener("keydown", function (event) {
-  //   if (event.key === "Enter") {
-  //     navigateToSearch();
-  //   }
-  // });
-
   return (
     <div className="home--container">
       <img className="img--background" alt="montanhas" src={bgImg} />
